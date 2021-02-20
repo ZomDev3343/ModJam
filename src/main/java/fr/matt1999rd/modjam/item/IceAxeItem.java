@@ -1,15 +1,21 @@
 package fr.matt1999rd.modjam.item;
 
 import fr.matt1999rd.modjam.ModJam;
+import fr.matt1999rd.modjam.action.ClimbingAction;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 
 public class IceAxeItem extends Item {
+    ClimbingAction action;
     public IceAxeItem() {
         super(new Item.Properties().maxDamage(64).group(ItemGroup.TOOLS));
         this.setRegistryName("ice_axe");
@@ -17,10 +23,22 @@ public class IceAxeItem extends Item {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getPlayer() == null)return ActionResultType.FAIL;
-        ItemStack stack = context.getPlayer().getItemStackFromSlot(EquipmentSlotType.OFFHAND);
+        PlayerEntity player = context.getPlayer();
+        if (player == null)return ActionResultType.FAIL;
+        World world = context.getWorld();
+        ItemStack stack = player.getHeldItem(Hand.OFF_HAND);
         if (stack.getItem() == ModItems.ROPE.asItem()){
-            ModJam.LOGGER.info("use ice axe item !");
+            if (!world.isRemote){
+                Vec3d playerPos = player.getPositionVec();
+                double distance = context.getPos().distanceSq(playerPos.x,playerPos.y,playerPos.z,false);
+                if (distance>1.0D)return ActionResultType.FAIL;
+                if (action == null){
+                    action = new ClimbingAction(player,world);
+                    ModJam.actions.add(action);
+                }
+                boolean hasPlayerRaise = action.raisePlayer();
+                if (hasPlayerRaise)action.onMovePlayer(true);
+            }
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.FAIL;

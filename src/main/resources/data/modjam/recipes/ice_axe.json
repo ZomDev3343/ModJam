@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "p#p",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "p": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "modjam:ice_axe",
+    "count": 1
+  }
+}
