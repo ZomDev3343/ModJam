@@ -1,0 +1,13 @@
+ModJam est un mod d'escalade pour l'exploration d'un monde montagneux avec de hautes falaises. Pour pouvoir escalader une falaise, elle doit être sans deverts verticaux.
+
+L'escalade
+
+Il faut se placer proche de la falaise avec dans la main droite un piolet et dans la main gauche un certain nombre de cordes correspondant à la falaise à escalader. 
+Il faut alors utiliser l'objet avec le clic droit et vous serez téléporté en haut de la falaise sur le premier bloc horizontal au haut de la falaise.
+La limite de corde correspond au nombre vertical de bloc à escalader. Lorsqu'on escalade un nombre n de bloc, n cordes sont retiré de la main gauche du joueur.
+
+La descente en rappel
+
+Pour descendre une falaise, les cordes sont le seul objet necessaire. Il faut le placer dans la main gauche pour pouvoir descendre toujours avec la même vitesse 
+mais sans dommage à l'arrivée ce qui permet de descendre les falaises escaladés précedemment. Les cordes sont conservé dans ce sens mais il est nécessaire
+d'avoir un nombre suffisant de corde car sinon il y a une perte de vie.
