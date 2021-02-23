@@ -33,27 +33,20 @@ public class PlayerFallHandler {
                     actionInCase.set(climbingAction);
                 }
             });
-            if (actionInCase.get() == null){
+            ClimbingAction cAction = actionInCase.get();
+            if (cAction == null){
                 ClimbingAction action = new ClimbingAction(player,player.world);
                 actions.add(action);
                 return;
             }
-            if (actionInCase.get().isBeginingOfFall()){
-                actionInCase.get().endFall();
-                if (actionInCase.get().isDamageCancel()){
-                    evt.setDamageMultiplier(0.0F);
-                }
-            }
-            int numberOfRope = getAltitude(player);
+            double numberOfRope = getAltitude(player)+evt.getDistance();
             if (numberOfRope<3){
-                actionInCase.get().enableDamage();
-                actionInCase.get().startFall();
+                return;
             }
             ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.OFFHAND);
             if (stack.getItem() == ModItems.ROPE.asItem()){
                 if (numberOfRope<stack.getCount()) {
                     evt.setDamageMultiplier(0.0F);
-                    actionInCase.get().cancelDamage();
                 }
             }
         }

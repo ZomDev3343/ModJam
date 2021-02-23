@@ -16,8 +16,6 @@ import net.minecraft.world.World;
 public class ClimbingAction {
     PlayerEntity player;
     World world;
-    boolean beginingOfFall = false;
-    boolean cancelDamage = false;
 
     public ClimbingAction(PlayerEntity player,World world){
         this.player = player;
@@ -26,30 +24,6 @@ public class ClimbingAction {
 
     public PlayerEntity getPlayer() {
         return player;
-    }
-
-    public void cancelDamage(){
-        cancelDamage = true;
-    }
-
-    public void enableDamage(){
-        cancelDamage = false;
-    }
-
-    public boolean isDamageCancel(){
-        return cancelDamage;
-    }
-
-    public boolean isBeginingOfFall(){
-        return beginingOfFall;
-    }
-
-    public void startFall(){
-        beginingOfFall = true;
-    }
-
-    public void endFall(){
-        beginingOfFall = false;
     }
 
     public boolean onMovePlayer(int altitude){
