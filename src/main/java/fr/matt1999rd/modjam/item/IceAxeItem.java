@@ -1,9 +1,7 @@
 package fr.matt1999rd.modjam.item;
 
-import fr.matt1999rd.modjam.ModJam;
 import fr.matt1999rd.modjam.action.ClimbingAction;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -30,14 +28,12 @@ public class IceAxeItem extends Item {
         if (stack.getItem() == ModItems.ROPE.asItem()){
             if (!world.isRemote){
                 Vec3d playerPos = player.getPositionVec();
-                double distance = context.getPos().distanceSq(playerPos.x,playerPos.y,playerPos.z,false);
+                double distance = context.getPos().distanceSq(playerPos.x,context.getPos().getY(),playerPos.z,true);
                 if (distance>1.0D)return ActionResultType.FAIL;
                 if (action == null){
                     action = new ClimbingAction(player,world);
-                    ModJam.actions.add(action);
                 }
-                boolean hasPlayerRaise = action.raisePlayer();
-                if (hasPlayerRaise)action.onMovePlayer(true);
+                action.raisePlayer();
             }
             return ActionResultType.SUCCESS;
         }
